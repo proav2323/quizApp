@@ -12,7 +12,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './components/loading/loading.component';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,14 +24,17 @@ import { LoadingComponent } from './components/loading/loading.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    LoadingComponent
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
