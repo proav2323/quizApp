@@ -15,7 +15,7 @@ export class AuthService {
       if (user) {
         const uid = user.uid;
         const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
-          this.user.update((data) => (data = doc.data() as user));
+          this.user.set(doc.data() as user);
         });
       } else {
       }
