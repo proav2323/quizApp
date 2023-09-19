@@ -3,7 +3,14 @@ import { Injectable, WritableSignal, signal } from '@angular/core';
 import { quiz } from '../models/quiz';
 import { question } from '../models/question';
 import { v4 } from 'uuid';
-import { doc, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { db } from 'src/firebase';
 import { Route, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -58,5 +65,31 @@ export class QuizService {
         this.loading.set(false);
       });
   }
-  getAllQuiz() {}
+  getAllQuiz() {
+    const q = query(collection(db, 'quizes'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const cities: quiz[] = [];
+      querySnapshot.forEach((doc) => {
+        cities.push(doc.data() as quiz);
+      });
+      this.quizs.set(cities);
+    });
+  }
+  getCategoryQuizes(category: string) {
+    const q = query(
+      collection(db, 'quizes'),
+      where('category', '==', category)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const cities: quiz[] = [];
+      querySnapshot.forEach((doc) => {
+        cities.push(doc.data() as quiz);
+      });
+      this.quizs.set(cities);
+    });
+  }
+  async getSearchedQuizes(search: string) {
+    const data = await this.AlogoliaService.serachQuizes(search);
+    this.quizs.set(data);
+  }
 }

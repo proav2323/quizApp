@@ -1,5 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, effect } from '@angular/core';
+import { Router } from '@angular/router';
 import { user } from 'src/app/models/user';
 
 @Component({
@@ -9,9 +10,18 @@ import { user } from 'src/app/models/user';
 })
 export class NavbarComponent {
   user: user | null = null;
-  constructor(private AuthService: AuthService) {
+  search: string = '';
+  constructor(private AuthService: AuthService, private router: Router) {
     effect(() => {
       this.user = this.AuthService.user();
     });
+  }
+  searchDone() {
+    this.router.navigate(['/search'], { queryParams: { search: this.search } });
+  }
+  check(e: any) {
+    if (e.keyCode === 13) {
+      this.searchDone();
+    }
   }
 }

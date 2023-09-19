@@ -26,4 +26,9 @@ export class AlogoliaService {
     };
     index.saveObject(data).wait();
   }
+  async serachQuizes(search: string): Promise<quiz[]> {
+    const index = this.client.initIndex('quizes');
+    const data = await index.search(search);
+    return data.hits;
+  }
 }

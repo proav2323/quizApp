@@ -19,6 +19,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { QuizCardComponent } from './components/quiz-card/quiz-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { QuizesComponent } from './pages/quizes/quizes.component';
+import { SearchComponent } from './pages/search/search.component';
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +35,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RegisterComponent,
     NavbarComponent,
     LoadingComponent,
+    QuizCardComponent,
+    QuizesComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +51,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSlideToggleModule,
     MatIconModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

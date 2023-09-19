@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth, db } from 'src/firebase';
-import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -96,5 +96,10 @@ export class AuthService {
           this.loading.set(false);
         }
       });
+  }
+  async getUserWithId(id: string): Promise<user> {
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data() as user;
   }
 }

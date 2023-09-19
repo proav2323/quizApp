@@ -1,0 +1,24 @@
+<div class="flex flex-col justify-start items-center w-full">
+  <div
+    class="m-2 overflow-x-scroll overflow-y-hidden sc flex flex-row md:justify-center items-center w-full"
+  >
+    <button
+      *ngFor="let catgeoryy of categories"
+      (click)="getCategoryQuizes(catgeoryy.name)"
+      class="{{
+        category === catgeoryy.name ? 'bg-blue-900' : 'bg-gray-600'
+      }} text-white p-3 m-2 rounded-md"
+    >
+      {{ catgeoryy.name }}
+    </button>
+  </div>
+  <div
+    class="flex flex-row justify-center w-[98%] items-center flex-wrap my-2"
+    *ngIf="quizes.length !== 0"
+  >
+    <app-quiz-card [quiz]="quiz" *ngFor="let quiz of quizes"></app-quiz-card>
+  </div>
+  <span class="text-lg font-semibold m-2 text-white" *ngIf="quizes.length === 0"
+    >no Quizes</span
+  >
+</div>
