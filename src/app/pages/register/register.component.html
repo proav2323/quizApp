@@ -1,1 +1,69 @@
-<p>register works!</p>
+<div
+  class="flex flex-row justify-center items-center w-full md:h-[100vh] h-fit"
+>
+  <form
+    class="w-[98%] md:w-[50%] py-2 md:px-2 bg-blue-800 rounded-md flex flex-col justify-center items-center md:m-0 my-2"
+    [formGroup]="formGroup"
+  >
+    <span class="mt-2 mb-2 text-lg font-bold text-white">Register</span>
+    <span
+      class="mt-2 mb-2 text-md font-bold text-red-700"
+      *ngIf="error !== ''"
+      >{{ error }}</span
+    >
+    <div class="w-[98%]">
+      <label
+        for="first_name"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Email</label
+      >
+      <input
+        type="email"
+        formControlName="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="John@123.net"
+        required
+      />
+    </div>
+    <div class="w-[98%]">
+      <label
+        for="first_name"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >password</label
+      >
+      <input
+        type="password"
+        formControlName="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="password"
+        required
+      />
+    </div>
+    <div class="w-[98%]">
+      <label
+        for="first_name"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Name</label
+      >
+      <input
+        type="text"
+        formControlName="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="John"
+        required
+      />
+    </div>
+    <button
+      class="bg-blue-100 p-3 rounded-md w-[98%] text-lg font-bold my-2 flex flex-row justify-center items-center"
+      (click)="login()"
+    >
+      <mat-spinner [diameter]="30" class="m-2" *ngIf="loading"></mat-spinner>
+      Register
+    </button>
+    <span
+      class="my-1 font-bold text-md hover:underline text-white cursor-pointer"
+      routerLink="/register"
+      >Don't have an account? Register</span
+    >
+  </form>
+</div>

@@ -8,13 +8,14 @@ import {
 } from 'firebase/auth';
 import { auth, db } from 'src/firebase';
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   user: WritableSignal<user | null> = signal<user | null>(null);
   loading: WritableSignal<boolean> = signal(false);
-  constructor() {}
+  constructor(private router: Router) {}
 
   getUser() {
     onAuthStateChanged(auth, (user) => {
@@ -34,6 +35,7 @@ export class AuthService {
         const user = userCredential.user;
         const unsub = onSnapshot(doc(db, 'users', user.uid), (doc) => {
           this.user.set(doc.data() as user);
+          this.router.navigateByUrl('/');
           this.loading.set(false);
         });
       })
@@ -68,10 +70,12 @@ export class AuthService {
         await setDoc(doc(db, 'users', user.uid), {
           name: name,
           email: email,
+          id: user.uid,
         })
           .then(() => {
             const unsub = onSnapshot(doc(db, 'users', user.uid), (doc) => {
               this.user.set(doc.data() as user);
+              this.router.navigateByUrl('/');
               this.loading.set(false);
             });
           })

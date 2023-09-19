@@ -1,3 +1,5 @@
+import { AlogoliaService } from './services/alogolia.service';
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 import { Carousel, initFlowbite } from 'flowbite';
 import type {
@@ -12,7 +14,12 @@ import type {
 })
 export class AppComponent {
   title = 'quizApp';
-  constructor() {
+  constructor(
+    private AuthService: AuthService,
+    private AlogoliaService: AlogoliaService
+  ) {
     initFlowbite();
+    this.AuthService.getUser();
+    this.AlogoliaService.insilizeAloglia();
   }
 }
