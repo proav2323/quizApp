@@ -5,7 +5,6 @@ import { QuizComponent } from './pages/quiz/quiz.component';
 import { AddQuizComponent } from './pages/add-quiz/add-quiz.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { QuizDetailsComponent } from './pages/quiz-details/quiz-details.component';
 import { AuthGuard } from './gaurds/auth.guard';
 import { SearchComponent } from './pages/search/search.component';
 import { QuizesComponent } from './pages/quizes/quizes.component';
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'addQuiz', component: AddQuizComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'quizDetails', component: QuizDetailsComponent },
   { path: 'search', component: SearchComponent },
   { path: 'quizes', component: QuizesComponent },
 ];

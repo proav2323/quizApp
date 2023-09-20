@@ -1,1 +1,102 @@
-<p>quiz works!</p>
+<div
+  class="flex flex-col justify-center items-center w-full md:h-[100vh] h-[100vh]"
+  *ngIf="quiz !== null"
+>
+  <div
+    *ngIf="isGameOver"
+    class="flex flex-col justify-center items-center w-full px-2 py-2 my-2"
+  >
+    <span class="text-white font-bold text-2xl m-2"
+      >your score: {{ score }}/{{ total }}</span
+    >
+    <button class="p-3 m-2 bg-green-800 rounded-md" (click)="restart()">
+      try agian
+    </button>
+  </div>
+  <div
+    class="flex flex-col justify-center items-center w-full my-2"
+    *ngIf="question !== null && !isGameOver"
+  >
+    <div class="flex flex-row justify-center items-center">
+      <span class="m-4 text-lg text-white font-semibold">{{
+        question.question
+      }}</span>
+      <span class="text-red-500 m-2 font-lg">0:{{ timer }}</span>
+    </div>
+    <div class="grid grid-cols-2 gap-2 w-[98%] justify-center items-center">
+      <div
+        *ngFor="let option of question.options"
+        (click)="choseOption(option)"
+        class="{{
+          isQuestionDone &&
+          chosenOption !== null &&
+          chosenOption === option &&
+          option.isCorrectAnswer
+            ? 'bg-green-700 text-white'
+            : isQuestionDone &&
+              chosenOption !== null &&
+              chosenOption === option &&
+              !option.isCorrectAnswer
+            ? 'bg-red-900 text-white'
+            : isQuestionDone &&
+              chosenOption !== null &&
+              chosenOption !== option &&
+              option.isCorrectAnswer
+            ? 'bg-green-700 text-white'
+            : isQuestionDone &&
+              chosenOption !== null &&
+              chosenOption === option &&
+              !option.isCorrectAnswer
+            ? 'bg-red-900 text-white'
+            : chosenOption === option
+            ? 'bg-white text-black'
+            : 'bg-blue-700 text-white'
+        }} transition-all duration-200 rounded-md py-3 px-3 w-[98%] cursor-pointer flex flex-row justify-between items-center"
+      >
+        <span class="flex-1 w-full text-center text-lg m-1 font-bold">{{
+          option.name
+        }}</span>
+        <mat-icon
+          class="m-2"
+          *ngIf="
+            (isQuestionDone &&
+              chosenOption !== null &&
+              chosenOption === option &&
+              option.isCorrectAnswer) ||
+            (isQuestionDone &&
+              chosenOption !== null &&
+              chosenOption !== option &&
+              option.isCorrectAnswer)
+          "
+          >check</mat-icon
+        >
+        <mat-icon
+          class="m-2"
+          *ngIf="
+            isQuestionDone &&
+            chosenOption !== null &&
+            chosenOption === option &&
+            !option.isCorrectAnswer
+          "
+          >close</mat-icon
+        >
+      </div>
+    </div>
+    <div class="flex flex-row m-2 justify-between w-[98%]">
+      <button
+        *ngIf="isQuestionDone"
+        (click)="next(this.question)"
+        class="bg-blue-900 p-3 rounded-md m-2 self-end text-white"
+      >
+        Next
+      </button>
+      <button
+        (click)="done()"
+        class="bg-green-900 p-3 rounded-md m-2 self-end text-white"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+  <div></div>
+</div>
