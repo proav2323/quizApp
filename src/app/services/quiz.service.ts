@@ -96,7 +96,9 @@ export class QuizService {
     const q = doc(db, 'quizes', id);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = querySnapshot.data();
-      this.quiz.set(data as quiz);
+      if (data !== undefined) {
+        this.quiz.set(data as quiz);
+      }
     });
   }
 }
