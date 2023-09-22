@@ -111,6 +111,7 @@ export class QuizComponent {
     this.timerSignal.set(60);
     this.chosenOptionSignal.set(null);
     clearInterval(this.timerInt);
+    this.scoreSignal.set(0);
     this.timerInt = setInterval(() => {
       this.timerSignal.update((data) => data - 1);
       if (this.timer === 0 && this.question) {

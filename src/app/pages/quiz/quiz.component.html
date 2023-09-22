@@ -18,7 +18,7 @@
     *ngIf="question !== null && !isGameOver"
   >
     <div class="flex flex-row justify-center items-center">
-      <span class="m-4 text-lg text-white font-semibold">{{
+      <span class="m-4 text-2xl text-white font-semibold">{{
         question.question
       }}</span>
       <span class="text-red-500 m-2 font-lg">0:{{ timer }}</span>
@@ -84,17 +84,17 @@
     </div>
     <div class="flex flex-row m-2 justify-between w-[98%]">
       <button
+        (click)="done()"
+        class="bg-green-900 p-3 rounded-md m-2 self-end text-white"
+      >
+        Done
+      </button>
+      <button
         *ngIf="isQuestionDone"
         (click)="next(this.question)"
         class="bg-blue-900 p-3 rounded-md m-2 self-end text-white"
       >
         Next
-      </button>
-      <button
-        (click)="done()"
-        class="bg-green-900 p-3 rounded-md m-2 self-end text-white"
-      >
-        Done
       </button>
     </div>
   </div>
