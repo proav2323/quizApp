@@ -1,6 +1,9 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizComponent } from './quiz.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { QuizService } from 'src/app/services/quiz.service';
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
@@ -8,7 +11,9 @@ describe('QuizComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [QuizComponent]
+      declarations: [QuizComponent],
+      imports: [AppRoutingModule, MatSnackBarModule],
+      providers: [QuizService],
     });
     fixture = TestBed.createComponent(QuizComponent);
     component = fixture.componentInstance;

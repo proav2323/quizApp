@@ -13,7 +13,7 @@ import type {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'quizApp';
+  title = 'Quiz App';
   constructor(
     private AuthService: AuthService,
     private AlogoliaService: AlogoliaService
