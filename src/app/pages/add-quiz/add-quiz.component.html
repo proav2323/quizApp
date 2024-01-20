@@ -1,37 +1,36 @@
-<div class="flex flex-row justify-center items-start w-full md:h-[100vh]">
+<div class="flex flex-row justify-center items-start w-full h-fit text-white">
   <form
-    class="md:w-[50%] w-[98%] h-fit py-2 flex flex-col justify-center items-center bg-blue-600 shadow-xl md:px-2 rounded-md m-3"
+    class="md:w-[98%] w-[98%] h-fit py-2 flex flex-col justify-center items-center shadow-xl md:px-2 rounded-md my-3"
     [formGroup]="formGroup"
   >
     <span class="text-lg m-2 font-semibold text-white">Add A Quiz</span>
-    <span *ngIf="error !== ''" class="text-lg font-bold text-red-900">{{
-      error
-    }}</span>
-    <div class="mb-6 w-[98%]">
-      <label
-        for="large-input"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Name</label
-      >
-      <input
-        type="text"
-        formControlName="name"
-        placeholder="quiz name"
-        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      />
-    </div>
-    <div class="mb-6 w-[98%]">
-      <label
-        for="message"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >description</label
-      >
-      <textarea
-        rows="4"
-        formControlName="description"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Write your description here..."
-      ></textarea>
+    <div class="mb-6 w-[98%] flex flex-row justify-between gap-2 items-center">
+      <div class="w-full">
+        <label
+          for="large-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Name</label
+        >
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="quiz name"
+          class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <div class="w-full">
+        <label
+          for="message"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >description</label
+        >
+        <textarea
+          rows="4"
+          formControlName="description"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Write your description here..."
+        ></textarea>
+      </div>
     </div>
     <div class="mb-6 w-[98%]">
       <label
@@ -49,25 +48,29 @@
         </option>
       </select>
     </div>
-    <div
-      class="m-2 flex flex-row justify-center items-center h-20 w-full flex-wrap"
-    >
+    <div class="m-2 flex flex-col justify-center items-center h-fit w-[98%]">
       <button
-        class="h-full px-2 bg-blue-400 text-white rounded-md"
+        class="btn solid info h-full w-full"
         (click)="setaddQuestionForm()"
       >
         Add Question
       </button>
       <div
-        *ngFor="let question of questions"
-        class="flex flex-row justify-between w-[100px] items-center m-2"
+        *ngIf="questions.length > 0"
+        class="flex flex-col justify-center items-center my-3"
       >
-        <span class="m-2 h-full border-gray-200 w-20"
-          >{{ question.question }}?</span
+        <span class="text-md mb-3">Questions</span>
+        <div
+          *ngFor="let question of questions"
+          class="flex flex-row justify-between w-[20vw] items-center"
         >
-        <mat-icon (click)="deletequestion(question)" class="cursor-pointer"
-          >delete</mat-icon
-        >
+          <span class="m-2 h-full border-gray-200 w-20"
+            >{{ question.question }}?</span
+          >
+          <mat-icon (click)="deletequestion(question)" class="cursor-pointer"
+            >delete</mat-icon
+          >
+        </div>
       </div>
     </div>
     <form
@@ -136,10 +139,7 @@
         Add Question
       </button>
     </form>
-    <button
-      class="p-3 rounded-md bg-blue-700 text-white flex justify-center items-center"
-      (click)="addQuiz()"
-    >
+    <button class="btn solid success w-full" (click)="addQuiz()">
       <mat-spinner [diameter]="30" class="m-2" *ngIf="loading"></mat-spinner>
       Add Quiz
     </button>

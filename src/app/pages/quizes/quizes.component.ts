@@ -19,6 +19,7 @@ export class QuizesComponent {
     private QuizService: QuizService,
     private categoriesService: CategoryService
   ) {
+    this.QuizService.quizs.set([]);
     this.QuizService.getCategoryQuizes(this.category);
     effect(() => {
       this.categories = this.categoriesService.categoryies();

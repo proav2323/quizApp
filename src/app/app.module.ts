@@ -23,6 +23,16 @@ import { MatCardModule } from '@angular/material/card';
 import { QuizesComponent } from './pages/quizes/quizes.component';
 import { SearchComponent } from './pages/search/search.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogModule,
+} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +61,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSnackBarModule,
     MatCardModule,
     MatTabsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

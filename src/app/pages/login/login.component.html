@@ -1,17 +1,12 @@
 <div
-  class="flex flex-row justify-center items-center w-full md:h-[100vh] h-fit"
+  class="flex flex-row justify-start bg-yellow-800 md:items-start items-center w-[80vw] md:w-[50vw] md:h-[50vh] h-[90vh] py-2 px-2 overflow-y-scroll md:max-h-[50vh] max-h-[90vh] noScroll"
 >
   <form
-    class="w-[98%] md:w-[50%] py-2 md:px-2 bg-blue-800 rounded-md flex flex-col justify-center items-center md:m-0 my-2"
+    class="w-[100%] gap-2 md:w-[100%] py-2 md:px-2 rounded-md flex flex-col justify-start items-center md:m-0"
     [formGroup]="formGroup"
   >
-    <span class="mt-2 mb-2 text-lg font-bold text-white">Login</span>
-    <span
-      class="mt-2 mb-2 text-md font-bold text-red-700"
-      *ngIf="error !== ''"
-      >{{ error }}</span
-    >
-    <div class="w-[98%]">
+    <span class="mt-2 mb-2 text-lg font-bold text-white">Welcom Back!! :)</span>
+    <div class="w-[98%] gap-2 flex flex-col justify-start items-start">
       <label
         for="first_name"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -25,7 +20,7 @@
         required
       />
     </div>
-    <div class="w-[98%]">
+    <div class="w-[98%] flex flex-col gap-2">
       <label
         for="first_name"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -39,16 +34,13 @@
         required
       />
     </div>
-    <button
-      class="bg-blue-100 p-3 rounded-md w-[98%] text-lg font-bold my-2 flex flex-row justify-center items-center"
-      (click)="login()"
-    >
+    <button class="btn solid success my-3 w-[98%]" (click)="login()">
       <mat-spinner [diameter]="30" class="m-2" *ngIf="loading"></mat-spinner>
       Login
     </button>
     <span
+      (click)="openModel()"
       class="my-1 font-bold text-md hover:underline text-white cursor-pointer"
-      routerLink="/register"
       >Don't have an account? Register</span
     >
   </form>

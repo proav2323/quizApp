@@ -14,16 +14,24 @@
     </button>
   </div>
   <div
-    class="flex flex-col justify-center items-center w-full my-2"
+    class="flex flex-col justify-start items-center h-[100vh] gap-5 w-full my-2"
     *ngIf="question !== null && !isGameOver"
   >
-    <div class="flex flex-row justify-center items-center">
-      <span class="m-4 text-2xl text-white font-semibold">{{
-        question.question
-      }}</span>
-      <span class="text-red-500 m-2 font-lg">0:{{ timer }}</span>
+    <div
+      class="flex flex-col justify-center items-center md:h-[40vh] h-[40vh] bg-blue-600 rounded-md mb-5 w-[80%] mt-5"
+    >
+      <div
+        class="flex flex-row justify-between items-center md:h-[80%] h-[80%] bg-white rounded-md w-[95%] text-black"
+      >
+        <span
+          class="m-4 text-2xl text-black font-semibold flex-1 mr-2 text-center"
+          >{{ question.question }}</span
+        >
+      </div>
     </div>
-    <div class="grid grid-cols-2 gap-2 w-[98%] justify-center items-center">
+    <div
+      class="grid md:grid-cols-2 grid-cols-1 gap-4 w-[95%] justify-center items-center"
+    >
       <div
         *ngFor="let option of question.options"
         (click)="choseOption(option)"
@@ -49,9 +57,9 @@
               !option.isCorrectAnswer
             ? 'bg-red-900 text-white'
             : chosenOption === option
-            ? 'bg-white text-black'
-            : 'bg-blue-700 text-white'
-        }} transition-all duration-200 rounded-md py-3 px-3 w-[98%] cursor-pointer flex flex-row justify-between items-center"
+            ? 'bg-blue-700 text-white'
+            : 'bg-white text-black'
+        }} transition-all duration-200 rounded-md py-3 px-3 w-[98%] cursor-pointer flex flex-row justify-between items-center h-[10vh]"
       >
         <span class="flex-1 w-full text-center text-lg m-1 font-bold">{{
           option.name
@@ -81,21 +89,6 @@
           >close</mat-icon
         >
       </div>
-    </div>
-    <div class="flex flex-row m-2 justify-between w-[98%]">
-      <button
-        (click)="done()"
-        class="bg-green-900 p-3 rounded-md m-2 self-end text-white"
-      >
-        Done
-      </button>
-      <button
-        *ngIf="isQuestionDone"
-        (click)="next(this.question)"
-        class="bg-blue-900 p-3 rounded-md m-2 self-end text-white"
-      >
-        Next
-      </button>
     </div>
   </div>
   <div></div>

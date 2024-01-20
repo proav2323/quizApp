@@ -1,5 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, WritableSignal, effect, signal } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  WritableSignal,
+  effect,
+  signal,
+} from '@angular/core';
 import { QuizService } from 'src/app/services/quiz.service';
 import { quiz } from 'src/app/models/quiz';
 import { question } from 'src/app/models/question';
@@ -10,7 +16,7 @@ import { option } from 'src/app/models/option';
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
 })
-export class QuizComponent {
+export class QuizComponent implements OnDestroy {
   isGameOverSignal: WritableSignal<boolean> = signal(false);
   isGameOver: boolean = false;
   isQuestionDoneSignal: WritableSignal<boolean> = signal(false);
@@ -27,6 +33,7 @@ export class QuizComponent {
   timerSignal: WritableSignal<number> = signal(60);
   timerInt: any;
   total: number = 0;
+  questionOptions: WritableSignal<option[]> = signal([]);
   constructor(
     private ActivatedRoute: ActivatedRoute,
     private quizService: QuizService
@@ -70,6 +77,7 @@ export class QuizComponent {
         Math.random() * (this.questions.length - 1)
       );
       this.questionSignal.set(this.questions[randomIndex]);
+      this.questionOptions.set(this.questionSignal()?.options!);
       console.log(this.questions[randomIndex]);
     } else {
       this.isGameOverSignal.set(true);
@@ -78,6 +86,9 @@ export class QuizComponent {
   }
   choseOption(option: option) {
     this.chosenOptionSignal.set(option);
+    setTimeout(() => {
+      this.done();
+    }, 500);
   }
   done() {
     if (this.chosenOption !== null && !this.isQuestionDone) {
@@ -85,7 +96,9 @@ export class QuizComponent {
         this.scoreSignal.update((data) => data + 1);
       }
       this.isQuestionDoneSignal.set(true);
-      clearInterval(this.timerInt);
+      setTimeout(() => {
+        this.next(this.question!);
+      }, 900);
     }
   }
   next(question: question) {
@@ -95,12 +108,6 @@ export class QuizComponent {
     this.isQuestionDoneSignal.set(false);
     this.pickRandomQuestion();
     this.timerSignal.set(60);
-    this.timerInt = setInterval(() => {
-      this.timerSignal.update((data) => data - 1);
-      if (this.timer === 0 && this.question) {
-        this.next(this.question);
-      }
-    }, 1000);
   }
   restart() {
     this.isGameOverSignal.set(false);
@@ -112,12 +119,10 @@ export class QuizComponent {
     this.chosenOptionSignal.set(null);
     clearInterval(this.timerInt);
     this.scoreSignal.set(0);
-    this.timerInt = setInterval(() => {
-      this.timerSignal.update((data) => data - 1);
-      if (this.timer === 0 && this.question) {
-        this.next(this.question);
-      }
-    }, 1000);
     this.pickRandomQuestion();
+  }
+
+  ngOnDestroy() {
+    this.quizService.quiz.set(null);
   }
 }

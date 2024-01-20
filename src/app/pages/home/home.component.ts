@@ -10,6 +10,7 @@ import { Component, effect } from '@angular/core';
 export class HomeComponent {
   quizes: quiz[] = [];
   constructor(private QuizService: QuizService) {
+    this.QuizService.quizs.set([]);
     this.QuizService.getAllQuiz();
     effect(() => {
       this.quizes = this.QuizService.quizs();

@@ -12,6 +12,7 @@ export class SearchComponent {
   quizes: quiz[] = [];
   search: string = '';
   constructor(private route: ActivatedRoute, private QuizService: QuizService) {
+    this.QuizService.quizs.set([]);
     this.route.queryParams.subscribe((data) => {
       if (data['search']) {
         this.search = data['search'];

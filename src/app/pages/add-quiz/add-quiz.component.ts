@@ -1,11 +1,12 @@
+import { option } from 'src/app/models/option';
 import { AuthService } from './../../services/auth.service';
 import { question } from './../../models/question';
-import { option } from './../../models/option';
 import { CategoryService } from './../../services/category.service';
 import { QuizService } from './../../services/quiz.service';
 import { Component, WritableSignal, effect, signal } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { user } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-quiz',
@@ -30,7 +31,8 @@ export class AddQuizComponent {
   constructor(
     private QuizService: QuizService,
     private CategoryService: CategoryService,
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private snackbar: MatSnackBar
   ) {
     this.categorioes = this.CategoryService.categoryies();
     effect(() => {
@@ -63,7 +65,7 @@ export class AddQuizComponent {
       this.questions.push(question);
       this.options = [];
     } else {
-      this.errors.set('there should be two options');
+      this.snackbar.open('there should be two options', 'close');
     }
   }
   deletequestion(q: question) {
@@ -80,11 +82,11 @@ export class AddQuizComponent {
         this.errors
       );
     } else if (this.user === null) {
-      this.errors.set('you need login to add quiz');
+      this.snackbar.open('you need login to add quiz', 'close');
     } else if (this.questions.length === 0) {
-      this.errors.set('there should be one question');
+      this.snackbar.open('there should be one question', 'close');
     } else {
-      this.errors.set('fill the fields');
+      this.snackbar.open('fill the fields', 'close');
     }
   }
 }

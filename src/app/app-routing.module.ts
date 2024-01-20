@@ -13,8 +13,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'quiz', component: QuizComponent },
   { path: 'addQuiz', component: AddQuizComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'search', component: SearchComponent },
   { path: 'quizes', component: QuizesComponent },
 ];

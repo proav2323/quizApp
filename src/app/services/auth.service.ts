@@ -9,13 +9,17 @@ import {
 import { auth, db } from 'src/firebase';
 import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import { RegisterComponent } from '../pages/register/register.component';
+import { LoginComponent } from '../pages/login/login.component';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   user: WritableSignal<user | null> = signal<user | null>(null);
   loading: WritableSignal<boolean> = signal(false);
-  constructor(private router: Router) {}
+  constructor(private router: Router, private snackbar: MatSnackBar) {}
 
   getUser() {
     onAuthStateChanged(auth, (user) => {
@@ -28,7 +32,12 @@ export class AuthService {
       }
     });
   }
-  login(email: string, password: string, errorS: WritableSignal<string>) {
+  login(
+    email: string,
+    password: string,
+    errorS: WritableSignal<string>,
+    dailogRef: MatDialogRef<LoginComponent>
+  ) {
     this.loading.set(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -37,22 +46,23 @@ export class AuthService {
           this.user.set(doc.data() as user);
           this.router.navigateByUrl('/');
           this.loading.set(false);
+          dailogRef.close();
         });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
-          errorS.set('wrong password for the user');
+          this.snackbar.open('invalid credentails', 'close');
           this.loading.set(false);
         } else if (errorCode === 'auth/user-not-found') {
-          errorS.set('user not found with this email');
+          this.snackbar.open('user not found with this email', 'close');
           this.loading.set(false);
         } else if (errorCode === 'auth/invalid-login-credentials') {
-          errorS.set('invalid-login-credentials');
+          this.snackbar.open('invalid-credentials', 'close');
           this.loading.set(false);
         } else {
-          errorS.set(errorMessage);
+          this.snackbar.open(errorMessage, 'close');
           this.loading.set(false);
         }
       });
@@ -61,7 +71,8 @@ export class AuthService {
     email: string,
     password: string,
     name: string,
-    errorS: WritableSignal<string>
+    errorS: WritableSignal<string>,
+    dailogRef: MatDialogRef<RegisterComponent>
   ) {
     this.loading.set(true);
     createUserWithEmailAndPassword(auth, email, password)
@@ -77,6 +88,7 @@ export class AuthService {
               this.user.set(doc.data() as user);
               this.router.navigateByUrl('/');
               this.loading.set(false);
+              dailogRef.close();
             });
           })
           .catch((err) => {
@@ -89,10 +101,10 @@ export class AuthService {
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === 'auth/user-found') {
-          errorS.set('user found with this email');
+          this.snackbar.open('user found with this email', 'close');
           this.loading.set(false);
         } else {
-          errorS.set(errorMessage);
+          this.snackbar.open(errorMessage, 'close');
           this.loading.set(false);
         }
       });
